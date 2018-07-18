@@ -2,9 +2,16 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-//import
+import service from './common/service/service'
 class App extends Component {
-  
+  constructor(){
+    super();
+  }
+  download = () =>{
+    let data = {name:"123"}
+    service.Giveg(data);
+  }
+
   render() {
     return (
       <div className="App">
@@ -15,33 +22,13 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        <button onClick={()=>this.download("http://localhost:53026/UserManagement/Giveg")}>点击下载
+        <button onClick={()=>this.download()}>点击下载
         </button>
       </div>
     );
   }
-
-  download = (url) => {
-    fetch(url, {
-      method: "GET",
-      mode: "no-cors",
-      headers: {
-          'Accept': 'application/json'
-      }   
-  }).then(result => {
-      // 在此处写获取数据之后的处理逻辑
-         console.log(result);
-         let url = window.URL.createObjectURL(new Blob([result]));
-         let link = document.createElement('a');
-         link.style.display = 'none';
-         link.href = url;
-         link.setAttribute('download',"123.xlsx");
-         document.body.appendChild(link);
-         link.click();
-      }).catch(function (e) {
-          //console.log("fetch fail", JSON.stringify(params));
-      });
-  }
 }
+
+  
 
 export default App;
